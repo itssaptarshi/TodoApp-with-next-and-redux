@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const todoList = localStorage.getItem('list') !== null? JSON.parse(localStorage.getItem('list')):[] 
+
+
 const initialState = {
-  todos: [],
+  todos: todoList,
 };
 
 const todoSlice = createSlice({
@@ -10,12 +13,14 @@ const todoSlice = createSlice({
   reducers: {
     addTodos(state, action) {
         state.todos.push(action.payload)
+        localStorage.setItem('list', JSON.stringify(state.todos.map(item => item)))
     },
     deleteTodo: (state, action) => {
         const newItems = state.todos.filter((item,index)=>{
             return index !== action.payload
         })
         state.todos = newItems
+        localStorage.setItem('list', JSON.stringify(state.todos.map(item => item)))
     },
   },
 });

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UseSelector, useDispatch, useSelector } from "react-redux";
 import { addTodos, deleteTodo } from "../redux/slices/todoSlice";
 
@@ -9,7 +9,6 @@ const Todo = () => {
   const dispatch = useDispatch();
 
   const handleAdd = () => {
-    console.log(inp);
     dispatch(addTodos(inp));
     setInp("");
   };
@@ -17,16 +16,27 @@ const Todo = () => {
     dispatch(deleteTodo(index));
   };
 
+  // const handleChange = (e) => {
+  //   setInp(e.target.value);
+  // };
+
+  // const handleKeyDown = () => {
+  //   if (e.key === 'Enter') {
+  //     console.log('do validate'); 
+  //   }
+  // };
+
   return (
     <div>
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-10">
         <input
-          type="text"
+          type="input"
           placeholder="enter here"
           className="text-black"
+          // onKeyDown={handleKeyDown}
           value={inp}
           onChange={(e) => {
-            setInp(e.target.value);
+            setInp(e.target.value)
           }}
         />
         <button className="m-3" onClick={handleAdd}>
